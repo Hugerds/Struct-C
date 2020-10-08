@@ -6,49 +6,70 @@ todos os empregados de sua empresa.*/
 #include <stdio.h>
 #include <conio.h>
 #include <locale.h>
-#define tam 1
+#include <stdlib.h>
+
+#define max 40
+
+typedef struct {
+	int dia;
+	int mes;
+	int ano;
+} data;
 
 struct empEmpresa {
-	char nome[tam][15];
-	char sobrenome[tam][30];
-	int dataNascimento[tam];
-    int rg[tam];
-    int dataAdmissao[tam];
-    float salario[tam];
-} Empregados;
+	char nome[20];
+	char sobrenome[20];
+	data nasc, ads;
+	int rg;
+	float salario;
+} Empregados[max];
 
-int main () {
-	setlocale(LC_ALL,"Portuguese");
+void leituraStruct(tam) {
 	int a;
 	for (a=0;a<tam;a++) {
+		printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		printf ("Digite o nome do %d funcionario\n", a+1);
 		fflush(stdin);
-		printf ("Digite o nome do empregado que será armazenado na posição %d\n", a);
-		fgets(Empregados.nome[a], 15, stdin);
+		gets(Empregados[a].nome);
+		printf ("Digite o sobrenome do %s\n", Empregados[a].nome);
 		fflush(stdin);
-		printf ("Digite o sobrenome do empregado que será armazenado na posição %d\n", a);
-		fgets(Empregados.sobrenome[a], 30, stdin);
+		gets(Empregados[a].sobrenome);
+		printf ("Digite a data de nascimento do %s\n", Empregados[a].nome);
 		fflush(stdin);
-		printf ("Digite a data de nascimento do empregado no formato DDMMAAAA que será armazenada na posição %d\n", a);
-		scanf ("%d", &Empregados.dataNascimento[a]);
+		scanf("%d %d %d", &Empregados[a].nasc.dia,&Empregados[a].nasc.mes,&Empregados[a].nasc.ano);
+		printf ("Digite o RG do %s\n", Empregados[a].nome);
 		fflush(stdin);
-		printf ("Digite o RG do empregado no formado NNNNNNNNN que será armazenado na posição %d", a);
-		scanf ("%d", &Empregados.rg[a]);
+		scanf("%d", &Empregados[a].rg);
+		printf ("Digite a data de admissao do %s\n", Empregados[a].nome);
 		fflush(stdin);
-		printf ("Digite a data de admissão do empregado no formado DDMMAAAA que será armazenada na posição %d", a);
-		scanf ("%d", &Empregados.dataAdmissao[a]);
-		fflush(stdin);
-		printf ("Digite o salário do empregado que será armazenado na posição %d", a);
-		scanf ("%f", &Empregados.salario[a]);
-		fflush(stdin);
-		fflush(stdout);
-		//printf("%s", Empregados.nome[0]);
-	}
-	for (a=0;a<tam;a++) {
-		printf("%s\n", Empregados.nome[a]);
-		printf("%s\n", Empregados.sobrenome[a]);
-		printf("%d\n", Empregados.dataNascimento[a]);
-		//printf("%d%d/%d%d/%d%d%d%d\n", Empregados.dataNascimento[a][0], Empregados.dataNascimento[a][1], Empregados.dataNascimento[a][2], Empregados.dataNascimento[a][3], Empregados.dataNascimento[a][4], Empregados.dataNascimento[a][5], Empregados.dataNascimento[a][6], Empregados.dataNascimento[a][7]);
-		
+		scanf("%d %d %d", &Empregados[a].ads.dia,&Empregados[a].ads.mes,&Empregados[a].ads.ano);
+		printf ("Digite o salario do %s\n", Empregados[a].nome);
+		scanf ("%f", &Empregados[a].salario);
 	}
 }
 
+void mostraStruct(tam) {
+	int a;
+	system("cls");
+	for (a=0;a<tam;a++) {
+		printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		printf("Nome do empregado: %s", Empregados[a].nome); printf (" %s\n", Empregados[a].sobrenome);
+		printf ("Data de nascimento: %d/%d/%d\n", Empregados[a].nasc.dia,Empregados[a].nasc.mes,Empregados[a].nasc.ano);
+		printf ("RG: %d\n", Empregados[a].rg); 
+		printf ("Data de admissao: %d/%d/%d\n", Empregados[a].ads.dia,Empregados[a].ads.mes,Empregados[a].ads.ano);
+		printf ("Salario: %.3f\n", Empregados[a].salario);
+	}
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+}
+
+int main () {
+	int tam;
+	do {
+		printf ("Quantos funcionarios tem sua empresa?(MAX 40)\nSua opcao: ");
+		scanf ("%d", &tam);
+	} while(tam<=0 || tam >40);
+	leituraStruct(tam);
+	mostraStruct(tam);
+	system("pause");
+	
+}
