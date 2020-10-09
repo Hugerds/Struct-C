@@ -1,3 +1,4 @@
+/*EXERCÍCIO PROPOSTO*/
 /*Declare uma estrutura que contenha as seguintes informações: NÚMERO DA CONTA,
 NOME DO CLIENTE, SALDO e DATA DA ÚLTIMA OPERAÇÃO.
 Utilizando a estrutura, faça um programa que permita a entrada de, no máximo, 50 clientes
